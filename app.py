@@ -35,14 +35,6 @@ engine = create_engine(DATABASE_URL)
 metadata.create_all(engine)
 #metadata.drop_all(engine)
 
-for col in product.c:
-    print(type(col))
-
-# route
-@app.get("/api/v2/hello")
-def get_hello():
-    return {"hello": "world"}
-
 
 @app.get("/product/{id}")
 async def get_product(id: int):
@@ -76,9 +68,10 @@ async def delete_product(id: int ):
     return await database.execute(query)
 
 if __name__ == '__main__':
-    product.create(engine)
-    database.create_all()
-    uvicorn.run(app, host='0.0.0.0', port = '8080')
+    #product.create(engine)
+    #database.create_all()
+    uvicorn.run(app, host='0.0.0.0', debug=True)
+
     #database.drop_all()
 
     database.session.commit()
